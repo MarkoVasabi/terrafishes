@@ -29,11 +29,9 @@ class SettingsScreen(Screen):
             "Current: " + self.get_difficulty()
         )
 
-    #повернення у головне меню
     def back_to_menu(self, *args):
         self.manager.current = "menu"
 
-    #виставляння складності гри
     def set_difficulty(self, difficulty):
         app = App.get_running_app()
         app.difficulty = difficulty
@@ -41,7 +39,6 @@ class SettingsScreen(Screen):
             "Current: " + self.get_difficulty()
         )
 
-    #отримання складності гри з кнопок для роботи зміни важкості гри
     def get_difficulty(self):
         app = App.get_running_app()
         return app.difficulty.upper()
