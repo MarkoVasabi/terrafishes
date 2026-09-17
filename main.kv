@@ -1,0 +1,150 @@
+#:set main_color "#F3B"
+#:set main_color_dark "rgb(43, 20, 35)"
+
+
+<GameButton@Button>
+    background_normal: ''
+    background_down: ''
+    background_color: 0, 0, 0, 0
+    color: 1, 1, 1, 1
+    font_size: "26sp"
+    bold: True
+    canvas.before:
+        Color:
+            rgba: app.main_button_color
+
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20]
+
+
+<MenuScreen>:       
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "20dp"
+
+        Image:
+            source: "bgofgame.jpg"
+            size_hint: 1,1
+            allow_stretch: True
+            pos: root.pos
+
+        GameButton:
+            text: 'PLAY'
+            font_size: '30dp'
+            size_hint: (1, 0.15)
+            on_press: root.go_play()
+        GameButton:
+            text: 'SETTINGS'
+            font_size: "30dp"
+            size_hint: (1, 0.15)
+            on_press: root.go_settings()
+        GameButton:
+            text: 'QUIT'
+            font_size: "30dp"
+            size_hint: (1, 0.15)
+            on_press: root.exit_game()
+
+<SettingsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "20dp"
+        Label:
+            text: 'Settings'
+            font_size: "40sp"
+        Label:
+            text: "Difficulty"
+            font_size: "25sp"
+            bold: True
+            color: 1, 1, 1, 1
+            size_hint_y: 0.15
+            #!!!!!!!!!!!!!!!!!
+        Label:
+            id: difficulty_label
+            text: "Current: " + root.get_difficulty()
+            font_size: "22sp"
+            bold: True
+            color: 1, 1, 1, 1
+            size_hint_y: 0.15
+        GameButton:
+            text: "Easy"
+            size_hint_y: 0.15
+            on_press: root.set_difficulty("easy")
+        GameButton:
+            text: "Medium"
+            size_hint_y: 0.15
+            on_press: root.set_difficulty("medium")
+        GameButton:
+            text: "Hard"
+            size_hint_y: 0.15
+            on_press: root.set_difficulty("hard")
+        GameButton:
+            text: 'Back'
+            font_size: '30dp'
+            size_hint: (1, 0.15)
+            on_press: root.back_to_menu()
+
+
+<GameScreen>:
+    FloatLayout:
+        Image:
+            source: "bg2.jpg"
+            size_hint: 1,1
+            allow_stretch: True
+            pos: root.pos
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "20dp"
+        Label:
+            text: 'Рибо убивця'
+            font_size: "40sp"
+            size_hint_y: 0.1
+        Label:
+            text: "Score: " + str(root.score)
+            font_size: "25sp"
+            size_hint_y: 0.1
+        FloatLayout:
+            size_hint_y: 0.76
+            id: game_window
+            Fish:
+                id: fish
+                center: root.center
+            Label:
+                id: level_complete
+                text: "LEVEL COMPLETE!"
+                font_size: "35sp"
+                opacity: 0
+                size_hint: None, None
+                size: "350dp", "100dp"
+                pos_hint:
+                    {"center_x": 0.5, "center_y": 0.5}
+            GameButton:
+                id: next_level_btn
+                text: "GO TO NEXT LEVEL"
+                font_size: "15sp"
+                opacity: 0
+                size_hint: None, None
+                size: "350dp", "100dp"
+                pos_hint:
+                    {"center_x": 0.5, "center_y": 0.1}
+                on_press: root.next_level()
+
+
+        GameButton:
+            text: 'Back'
+            font_size: '30dp'
+            size_hint: (1, 0.15)
+            on_press: root.back_to_menu()
+
+
+<Fish>:
+    source: "photo_2026-09-03_18-41-14.jpg"
+    size_hint: None, None
+    size: "200dp", "200dp"
+    allow_stretch: True
+    opacity: 1
